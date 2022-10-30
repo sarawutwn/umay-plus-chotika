@@ -150,8 +150,8 @@ export default function Home() {
             <Stack
               sx={{ justifyContent: "center", alignItems: "center", mt: 2 }}
             >
-              <Typography variant="h4">
-                <b>UMAY PLUS</b>
+              <Typography variant="h4" sx={{ textAlign: "center"}}>
+                <b>UMAY+</b>
                 {` `}
                 <b>สาขาอุดรธานี</b>
               </Typography>
