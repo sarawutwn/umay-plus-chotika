@@ -82,42 +82,22 @@ export default function Home() {
         ชื่อบริษัท ${message.workName}\n
         เวลาที่สะดวกให้ติดต่อ ${message.timeType}
       `;
-      console.log(lineMessage)
-      var data = qs.stringify({
-        message: lineMessage,
-      });
-      var config = {
-        method: "post",
-        url: "https://notify-api.line.me/api/notify",
+      axios({
+        method: 'post',
+        url: 'https://notify-api.line.me/api/notify',
         headers: {
-          Authorization: "Bearer LZ93ndPpd3Y68l8HYJZ1E44atkXPqsVFgSJ311apKdd",
-          "Content-Type": "application/x-www-form-urlencoded",
+          'Authorization': 'Bearer ' + 'mkMKKL95FSdOpf7nrqERbO2HPxJMwwz0IPqTVjopOpt',
+          'Content-Type': 'application/x-www-form-urlencoded',
+          'Access-Control-Allow-Origin': '*'
         },
-        data: data,
-      };
-
-      axios(config)
-        .then(function (response) {
-          if(response.data.status === 200) {
-            setMessage({
-              gender: "",
-              firstname: "",
-              lastname: "",
-              code: "",
-              phone: "",
-              selectJangWat: "",
-              selectPisanee: "",
-              workType: "",
-              workName: "",
-              timeType: "",
-              birthOfDate: `${new Date()}`,
-            })
-            alert("ส่งข้อมูลสำเร็จแล้ว กรุณารอเจ้าหน้าที่ติดต่อกลับ")
-          }
+        data: qs.stringify({
+          message: "test",
         })
-        .catch(function (error) {
-          console.log(error);
-        });
+      }).then((res) => {
+        console.log(res.data)
+      }).catch(err => {
+        console.error(err);
+      })
     } catch (err) {
       alert(err);
     }
