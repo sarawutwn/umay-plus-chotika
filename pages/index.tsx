@@ -472,7 +472,7 @@ export default function Home() {
               </TextField>
             </Stack>
             <Stack
-              sx={{ display: "flex", justifyContent: "start", ml: 1, mt: 2 }}
+              sx={{ display: "flex", justifyContent: "start", ml: 1, mt: 3 }}
             >
               <Typography
                 variant="subtitle2"
@@ -480,7 +480,7 @@ export default function Home() {
               >{`     เวลาที่สะดวกให้เจ้าหน้าที่ติดต่อ เป็นเวลาโดยประมาณการ หากมีลูกค้าให้ความสนใจเป็นจำนวนมาก เจ้าหน้าที่อาจทำการติดต่อไปในเวลาอื่น กรุณาสอบถามที่ LineID : 0641932423`}</Typography>
               <a
                 href="https://www.easybuy.co.th/th/pdpacustomer"
-                style={{ display: "flex", flexDirection: "row" }}
+                style={{ display: "flex", flexDirection: "row", marginTop: "10px" }}
               >
                 <WarningIcon fontSize="small" />
                 <Typography variant="subtitle2">
