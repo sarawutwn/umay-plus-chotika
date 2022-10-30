@@ -25,6 +25,7 @@ export default function userHandler(req: NextApiRequest, res: NextApiResponse) {
       }).then((response) => {
         if(response.data.status === 200) {
             res.status(200).json({ status: "success" })
+            return;
         }
         res.status(500).json({ status: "error", message: "some thing went wrong!"})
       }).catch(err => {

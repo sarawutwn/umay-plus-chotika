@@ -8,6 +8,7 @@ import WarningIcon from "@mui/icons-material/Warning";
 import {
   Box,
   Button,
+  Checkbox,
   FormControl,
   FormControlLabel,
   FormLabel,
@@ -58,6 +59,7 @@ export default function Home() {
   });
   const [jangwatState, setJangWatState] = useState([]);
   const [pisanee, setPisanee] = useState([]);
+  const [verify, setVerify] = useState(false);
 
   const mount = async () => {
     const data: any = await groupBy(jangwat, (item) => item.province);
@@ -69,6 +71,10 @@ export default function Home() {
   };
 
   const submit = async () => {
+    if(message.firstname === "" || message.lastname === "" || message.code === "" || message.code.length !== 13 || message.phone === "" || message.selectJangWat === "" || message.selectPisanee === "" || message.workType === "" || message.workName === "" || message.timeType === "") {
+      alert("กรุณากรอกข้อมูลให้ครบ!");
+      return;
+    }
     try {
       let date = new Date(message.birthOfDate)
       const lineMessage = `
@@ -480,7 +486,7 @@ export default function Home() {
               <Typography
                 variant="subtitle2"
                 sx={{ color: "black" }}
-              >{`     เวลาที่สะดวกให้เจ้าหน้าที่ติดต่อ เป็นเวลาโดยประมาณการ หากมีลูกค้าให้ความสนใจเป็นจำนวนมาก เจ้าหน้าที่อาจทำการติดต่อไปในเวลาอื่น กรุณาสอบถามที่`}</Typography>
+              >{`     เวลาที่สะดวกให้เจ้าหน้าที่ติดต่อ เป็นเวลาโดยประมาณการ หากมีลูกค้าให้ความสนใจเป็นจำนวนมาก เจ้าหน้าที่อาจทำการติดต่อไปในเวลาอื่น กรุณาสอบถามที่ LineID : 0641932423`}</Typography>
               <a
                 href="https://www.easybuy.co.th/th/pdpacustomer"
                 style={{ display: "flex", flexDirection: "row" }}
@@ -492,6 +498,12 @@ export default function Home() {
               </a>
             </Stack>
             <Stack
+              sx={{ display: "flex", flexDirection: "row", justifyContent: "start", ml: 0, mt:1 }}
+            >
+              <Checkbox checked={verify} onChange={(e) => setVerify(e.target.checked)} />
+              <Typography variant="subtitle2" sx={{ mt: 1.3 }}>ข้าพเจ้าได้อ่านและทำความเข้าใจเกี่ยวกับนโยบายคุ้มครองข้อมูลส่วนบุคคล</Typography>
+            </Stack>
+            <Stack
               sx={{
                 display: "flex",
                 justifyContent: "center",
@@ -501,6 +513,7 @@ export default function Home() {
               }}
             >
               <Button
+                disabled={!verify || message.firstname === "" || message.lastname === "" || message.code === "" || message.code.length !== 13 || message.phone === "" || message.selectJangWat === "" || message.selectPisanee === "" || message.workType === "" || message.workName === "" || message.timeType === ""}
                 variant="contained"
                 size="small"
                 color="success"
