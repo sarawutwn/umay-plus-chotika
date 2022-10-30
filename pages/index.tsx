@@ -78,7 +78,7 @@ export default function Home() {
     try {
       let date = new Date(message.birthOfDate)
       const lineMessage = `
-      \nชื่อ-${message.firstname} ${message.lastname}\nเลขบัตร-${message.code}\nวันเกิด-${date.toLocaleDateString('th')}\nที่อยู๋-${message.selectJangWat} ${message.selectPisanee}\nเบอร์โทรศัพท์-${message.phone}\nอาชีพ-${message.workType}\nชื่อบริษัท-${message.workName}\nเวลาที่สะดวกให้ติดต่อ-${message.timeType}`;
+      \nชื่อ-${message.firstname} ${message.lastname}\nเลขบัตร-${message.code}\nวันเกิด-${date.toLocaleDateString('th')}\nที่อยู่-${message.selectJangWat} ${message.selectPisanee}\nเบอร์โทรศัพท์-${message.phone}\nอาชีพ-${message.workType}\nชื่อบริษัท-${message.workName}\nเวลาที่สะดวกให้ติดต่อ-${message.timeType}`;
       axios({
         method: 'post',
         url: '/api/line-notify',
