@@ -70,11 +70,12 @@ export default function Home() {
 
   const submit = async () => {
     try {
+      let date = new Date(message.birthOfDate)
       const lineMessage = `
         ข้อมูลลูกค้า Line Notify umay+\n
         ชื่อ ${message.firstname} ${message.lastname}\n
         เลขบัตร ${message.code}\n
-        วันเกิด ${moment(message.birthOfDate).format("DD-MM-YYYY")}\n
+        วันเกิด ${date.toLocaleDateString('th')}\n
         ที่อยู๋ ${message.selectJangWat} ${message.selectPisanee}\n
         เบอร์โทรศัพท์ ${message.phone}\n
         อาชีพ ${message.workType}\n
@@ -82,41 +83,41 @@ export default function Home() {
         เวลาที่สะดวกให้ติดต่อ ${message.timeType}
       `;
       console.log(lineMessage)
-      // var data = qs.stringify({
-      //   message: lineMessage,
-      // });
-      // var config = {
-      //   method: "post",
-      //   url: "https://notify-api.line.me/api/notify",
-      //   headers: {
-      //     Authorization: "Bearer LZ93ndPpd3Y68l8HYJZ1E44atkXPqsVFgSJ311apKdd",
-      //     "Content-Type": "application/x-www-form-urlencoded",
-      //   },
-      //   data: data,
-      // };
+      var data = qs.stringify({
+        message: lineMessage,
+      });
+      var config = {
+        method: "post",
+        url: "https://notify-api.line.me/api/notify",
+        headers: {
+          Authorization: "Bearer LZ93ndPpd3Y68l8HYJZ1E44atkXPqsVFgSJ311apKdd",
+          "Content-Type": "application/x-www-form-urlencoded",
+        },
+        data: data,
+      };
 
-      // axios(config)
-      //   .then(function (response) {
-      //     if(response.data.status === 200) {
-      //       setMessage({
-      //         gender: "",
-      //         firstname: "",
-      //         lastname: "",
-      //         code: "",
-      //         phone: "",
-      //         selectJangWat: "",
-      //         selectPisanee: "",
-      //         workType: "",
-      //         workName: "",
-      //         timeType: "",
-      //         birthOfDate: `${new Date()}`,
-      //       })
-      //       alert("ส่งข้อมูลสำเร็จแล้ว กรุณารอเจ้าหน้าที่ติดต่อกลับ")
-      //     }
-      //   })
-      //   .catch(function (error) {
-      //     console.log(error);
-      //   });
+      axios(config)
+        .then(function (response) {
+          if(response.data.status === 200) {
+            setMessage({
+              gender: "",
+              firstname: "",
+              lastname: "",
+              code: "",
+              phone: "",
+              selectJangWat: "",
+              selectPisanee: "",
+              workType: "",
+              workName: "",
+              timeType: "",
+              birthOfDate: `${new Date()}`,
+            })
+            alert("ส่งข้อมูลสำเร็จแล้ว กรุณารอเจ้าหน้าที่ติดต่อกลับ")
+          }
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
     } catch (err) {
       alert(err);
     }
@@ -314,7 +315,7 @@ export default function Home() {
                   onChange={(newValue) => {
                     let date:string = newValue as string;
                     console.log(date)
-                    setMessage({ ...message, birthOfDate: date.$d })
+                    setMessage({ ...message, birthOfDate: date })
                   }}
                   value={message.birthOfDate}
                 />
