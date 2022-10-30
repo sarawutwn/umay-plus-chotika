@@ -96,7 +96,22 @@ export default function Home() {
 
       axios(config)
         .then(function (response) {
-          console.log(JSON.stringify(response.data));
+          if(response.data.status === 200) {
+            setMessage({
+              gender: "",
+              firstname: "",
+              lastname: "",
+              code: "",
+              phone: "",
+              selectJangWat: "",
+              selectPisanee: "",
+              workType: "",
+              workName: "",
+              timeType: "",
+              birthOfDate: `${new Date()}`,
+            })
+            alert("ส่งข้อมูลสำเร็จแล้ว กรุณารอเจ้าหน้าที่ติดต่อกลับ")
+          }
         })
         .catch(function (error) {
           console.log(error);
