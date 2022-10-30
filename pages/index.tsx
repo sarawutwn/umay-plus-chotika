@@ -84,19 +84,33 @@ export default function Home() {
       `;
       axios({
         method: 'post',
-        url: 'https://notify-api.line.me/api/notify',
+        url: '/api/line-notify',
         headers: {
-          'Authorization': 'Bearer ' + 'mkMKKL95FSdOpf7nrqERbO2HPxJMwwz0IPqTVjopOpt',
           'Content-Type': 'application/x-www-form-urlencoded',
           'Access-Control-Allow-Origin': '*'
         },
         data: qs.stringify({
-          message: "test",
+          message: lineMessage,
         })
       }).then((res) => {
-        console.log(res.data)
+        if(res.data.status === "success") {
+          alert("ส่งข้อมูลแล้ว กรุณารอการติดต่อกลับ");
+          setMessage({
+            gender: "",
+            firstname: "",
+            lastname: "",
+            code: "",
+            phone: "",
+            selectJangWat: "",
+            selectPisanee: "",
+            workType: "",
+            workName: "",
+            timeType: "",
+            birthOfDate: `${new Date()}`,
+          })
+        }
       }).catch(err => {
-        console.error(err);
+        alert(err)
       })
     } catch (err) {
       alert(err);
@@ -213,6 +227,7 @@ export default function Home() {
                 }}
               >
                 <TextField
+                  value={message.firstname}
                   fullWidth
                   variant="outlined"
                   size="small"
@@ -235,6 +250,7 @@ export default function Home() {
                 }}
               >
                 <TextField
+                  value={message.lastname}
                   fullWidth
                   variant="outlined"
                   size="small"
@@ -294,7 +310,6 @@ export default function Home() {
                   )}
                   onChange={(newValue) => {
                     let date:string = newValue as string;
-                    console.log(date)
                     setMessage({ ...message, birthOfDate: date })
                   }}
                   value={message.birthOfDate}
@@ -314,6 +329,7 @@ export default function Home() {
                 }}
               >
                 <TextField
+                  value={message?.selectJangWat}
                   fullWidth
                   variant="outlined"
                   size="small"
