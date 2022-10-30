@@ -60,8 +60,8 @@ export default function Home() {
   const [pisanee, setPisanee] = useState([]);
 
   const mount = async () => {
-    const data = await groupBy(jangwat, (item) => item.province);
-    const state = [];
+    const data: any = await groupBy(jangwat, (item) => item.province);
+    const state:any = [];
     for (let item of data) {
       await state.push(item[0]);
     }
@@ -81,41 +81,42 @@ export default function Home() {
         ชื่อบริษัท ${message.workName}\n
         เวลาที่สะดวกให้ติดต่อ ${message.timeType}
       `;
-      var data = qs.stringify({
-        message: lineMessage,
-      });
-      var config = {
-        method: "post",
-        url: "https://notify-api.line.me/api/notify",
-        headers: {
-          Authorization: "Bearer LZ93ndPpd3Y68l8HYJZ1E44atkXPqsVFgSJ311apKdd",
-          "Content-Type": "application/x-www-form-urlencoded",
-        },
-        data: data,
-      };
+      console.log(lineMessage)
+      // var data = qs.stringify({
+      //   message: lineMessage,
+      // });
+      // var config = {
+      //   method: "post",
+      //   url: "https://notify-api.line.me/api/notify",
+      //   headers: {
+      //     Authorization: "Bearer LZ93ndPpd3Y68l8HYJZ1E44atkXPqsVFgSJ311apKdd",
+      //     "Content-Type": "application/x-www-form-urlencoded",
+      //   },
+      //   data: data,
+      // };
 
-      axios(config)
-        .then(function (response) {
-          if(response.data.status === 200) {
-            setMessage({
-              gender: "",
-              firstname: "",
-              lastname: "",
-              code: "",
-              phone: "",
-              selectJangWat: "",
-              selectPisanee: "",
-              workType: "",
-              workName: "",
-              timeType: "",
-              birthOfDate: `${new Date()}`,
-            })
-            alert("ส่งข้อมูลสำเร็จแล้ว กรุณารอเจ้าหน้าที่ติดต่อกลับ")
-          }
-        })
-        .catch(function (error) {
-          console.log(error);
-        });
+      // axios(config)
+      //   .then(function (response) {
+      //     if(response.data.status === 200) {
+      //       setMessage({
+      //         gender: "",
+      //         firstname: "",
+      //         lastname: "",
+      //         code: "",
+      //         phone: "",
+      //         selectJangWat: "",
+      //         selectPisanee: "",
+      //         workType: "",
+      //         workName: "",
+      //         timeType: "",
+      //         birthOfDate: `${new Date()}`,
+      //       })
+      //       alert("ส่งข้อมูลสำเร็จแล้ว กรุณารอเจ้าหน้าที่ติดต่อกลับ")
+      //     }
+      //   })
+      //   .catch(function (error) {
+      //     console.log(error);
+      //   });
     } catch (err) {
       alert(err);
     }
@@ -178,8 +179,10 @@ export default function Home() {
               sx={{ justifyContent: "center", alignItems: "center", mt: 4 }}
             >
               <FormControl
-                onChange={(e) =>
-                  setMessage({ ...message, gender: `${e.target.value}` })
+                onChange={(event) => {
+                  const target = event.target as HTMLInputElement;
+                  setMessage({ ...message, gender: target.value })
+                }
                 }
               >
                 <FormLabel
@@ -308,9 +311,11 @@ export default function Home() {
                       helperText={null}
                     />
                   )}
-                  onChange={(newValue) =>
-                    setMessage({ ...message, "birthOfDate": `${newValue.$d}` })
-                  }
+                  onChange={(newValue) => {
+                    let date:string = newValue as string;
+                    console.log(date)
+                    setMessage({ ...message, birthOfDate: date.$d })
+                  }}
                   value={message.birthOfDate}
                 />
               </LocalizationProvider>
@@ -481,7 +486,6 @@ export default function Home() {
               >{`     เวลาที่สะดวกให้เจ้าหน้าที่ติดต่อ เป็นเวลาโดยประมาณการ หากมีลูกค้าให้ความสนใจเป็นจำนวนมาก เจ้าหน้าที่อาจทำการติดต่อไปในเวลาอื่น กรุณาสอบถามที่`}</Typography>
               <a
                 href="https://www.easybuy.co.th/th/pdpacustomer"
-                target="_blank"
                 style={{ display: "flex", flexDirection: "row" }}
               >
                 <WarningIcon fontSize="small" />
@@ -518,7 +522,6 @@ export default function Home() {
         <footer className={styles.footer}>
           <a
             href="https://github.com/sarawutwn"
-            target="_blank"
             rel="noopener noreferrer"
           >
             Develop by{" github.com/sarawutwn"}
