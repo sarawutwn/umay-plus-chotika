@@ -23,11 +23,14 @@ export default function userHandler(req: NextApiRequest, res: NextApiResponse) {
             message: message,
           })
       }).then((response) => {
-        console.log(response.data)
+        if(response.data.status === 200) {
+            res.status(200).json({ status: "success" })
+        }
+        res.status(500).json({ status: "error", message: "some thing went wrong!"})
       }).catch(err => {
         console.log(err)
       })
-      res.status(200).json({ status: "success" })
+      
       break;
     default:
       res.setHeader('Allow', ['GET', 'PUT', 'POST'])
